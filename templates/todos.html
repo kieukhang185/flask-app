@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Todos{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3>All ToDos</h3>
+  <button class="btn btn-primary" id="newTodoBtn">New ToDo</button>
+</div>
+<table class="table table-striped">
+  <thead><tr><th>Key</th><th>Title</th><th>Type</th><th>Status</th><th>Epic</th><th>Assignee</th></tr></thead>
+  <tbody id="todoTableBody"></tbody>
+</table>
+
+<!-- Modal for Create/Edit -->
+<div class="modal fade" id="todoModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalTitle">New ToDo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="todoForm">
+          <!-- fields: title, desc, type, epic (if epic list loaded), assignee etc -->
+          <div class="mb-3">
+            <label class="form-label">Title</label>
+            <input class="form-control" name="title" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea class="form-control" name="description"></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Type</label>
+            <select class="form-select" name="type" id="typeSelect">
+              <option value="task">Task</option>
+              <option value="sub-task">Sub-Task</option>
+              <option value="epic">Epic</option>
+              <option value="bug">Bug</option>
+            </select>
+          </div>
+          <div class="mb-3" id="epicSelectGroup">
+            <label class="form-label">Epic</label>
+            <select class="form-select" name="epic" id="epicSelect">
+              <option value="">None</option>
+            </select>
+          </div>
+          <div class="mb-3 d-none" id="parentTaskGroup">
+            <label class="form-label">Parent Task</label>
+            <select class="form-select" name="parent_task" id="parentTaskSelect">
+              <option value="">Select Task</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button class="btn btn-primary" id="saveTodoBtn">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

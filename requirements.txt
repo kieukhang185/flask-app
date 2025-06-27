@@ -1,0 +1,7 @@
+Flask
+flask-restx
+flask-bcrypt
+flask-jwt-extended
+flask-pymongo
+pymongo
+python-dotenv

@@ -1,0 +1,2 @@
+## TASK
+- remove epics page -> load task by type
