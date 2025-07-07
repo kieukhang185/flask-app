@@ -1,7 +1,9 @@
 #!/bin/bash
 genera_secret(){
     python3 -c "import secrets
-    secrets.token_hex(32)"
+SECRET_KEY = (secrets.token_hex(32))
+with open('.env', 'a') as file:
+    file.write(f'\nSECRET_KEY={SECRET_KEY}\n')"
 }
 
 change_docker_permission(){
@@ -10,20 +12,46 @@ change_docker_permission(){
 }
 
 install_depen_all(){
-    sudo apt update && sudo apt-get install -y git curl vim ca-certificates
-    # Add Docker's official GPG key:
-    sudo install -m 0755 -d /etc/apt/keyrings
-    sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
-    sudo chmod a+r /etc/apt/keyrings/docker.asc
 
-    # Add the repository to Apt sources:
-    echo \
-    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
-    $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-    sudo apt-get update
-    sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-    change_docker_permission
+    sys=$1
+
+    if [[ $sys == "" ]]; then
+        echo "Please provide system to install (debian, ubuntu, rhel,...)"
+        exit 1
+    fi
+
+    if [[ $sys == "debian" || $sys == "ubuntu" ]]; then
+        sudo apt update && sudo apt-get install -y git curl vim ca-certificates python3 python3-pip
+        # Add Docker's official GPG key:
+        sudo install -m 0755 -d /etc/apt/keyrings
+        sudo curl -fsSL https://download.docker.com/linux/$sys/gpg -o /etc/apt/keyrings/docker.asc
+        sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+        # Add the repository to Apt sources:
+        echo \
+        "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/$sys \
+        $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+        sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+        sudo apt-get update
+        sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+        change_docker_permission
+    else
+        echo "This is not support for $sys, Please waite!"
+        exit 0
+    fi
+
+    
+}
+
+update_env_file(){
+    echo "FLASK_RUN_HOST=0.00.0.0
+    FLASK_RUN_PORT=5000
+    ADMIN_USERNAME=admin
+    ADMIN_PASSWORD=admin
+    ADMIN_EMAIL=admin@example.com
+    MONGO_HOST=mongo
+    MONGO_PORT=27017
+    MONGO_DB=tododb" >> .env
 }
 
 ## docker compose build --no-cache web

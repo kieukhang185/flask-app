@@ -1,13 +1,9 @@
 #!/bin/sh
 set -e
 
-# host/port of your mongo service (matches docker-compose service name + port)
-MONGO_HOST="${MONGO_HOST:-mongo}"
-MONGO_PORT="${MONGO_PORT:-27017}"
-
-echo "⏳ Waiting for MongoDB at $MONGO_HOST:$MONGO_PORT…"
+echo "⏳ Waiting for MongoDB at $MONGO_URI…"
 # loop until nc sees something listening
-while ! nc -z "$MONGO_HOST" "$MONGO_PORT"; do
+while ! nc -z "$MONGO_URI"; do
   echo "$(date +'%Y-%m-%dT%H:%M:%S') – still waiting for mongo…" 
   sleep 1
 done
