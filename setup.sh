@@ -1,10 +1,4 @@
 #!/bin/bash
-genera_secret(){
-    python3 -c "import secrets
-SECRET_KEY = (secrets.token_hex(32))
-with open('.env', 'a') as file:
-    file.write(f'\nSECRET_KEY={SECRET_KEY}\n')"
-}
 
 change_docker_permission(){
     sudo chmod 666 /var/run/docker.sock
@@ -17,7 +11,7 @@ install_depen_all(){
 
     if [[ $sys == "" ]]; then
         echo "Please provide system to install (debian, ubuntu, rhel,...)"
-        exit 1
+        return
     fi
 
     if [[ $sys == "debian" || $sys == "ubuntu" ]]; then
@@ -37,21 +31,9 @@ install_depen_all(){
         change_docker_permission
     else
         echo "This is not support for $sys, Please waite!"
-        exit 0
+        return
     fi
-
     
-}
-
-update_env_file(){
-    echo "FLASK_RUN_HOST=0.00.0.0
-    FLASK_RUN_PORT=5000
-    ADMIN_USERNAME=admin
-    ADMIN_PASSWORD=admin
-    ADMIN_EMAIL=admin@example.com
-    MONGO_HOST=mongo
-    MONGO_PORT=27017
-    MONGO_DB=tododb" >> .env
 }
 
 ## docker compose build --no-cache web
