@@ -5,6 +5,17 @@ services:
     env_file: .env
     restart: on-failure
     ports:
-      - "80:80"
+      - "80:5000" # 80:5000 to deploy on ec2
+    depends_on:
+      - mongo
     volumes:
       - .:/app
+  mongo:
+    image: mongo:5.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:

@@ -1,0 +1,5 @@
+## login to docker hub
+
+docker login -u hunterbxb <token>
+
+befor start webapp need to pull hunterbxb/monggodb_backup:latest and coppy backup file to docker volume
