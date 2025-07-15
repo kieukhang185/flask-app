@@ -3,3 +3,7 @@
 docker login -u hunterbxb <token>
 
 befor start webapp need to pull hunterbxb/monggodb_backup:latest and coppy backup file to docker volume
+
+docker pulll hunterbxb/monggodb_backup:0.0.1
+
+/var/lib/docker/volumes/flask-app_mongo_data/_data

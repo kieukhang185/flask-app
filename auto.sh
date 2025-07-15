@@ -36,6 +36,11 @@ install_depen_all(){
     
 }
 
+start(){
+    cp env > .env
+    docker compose up --build
+}
+
 ## docker compose build --no-cache web
 ## docker compose --env-file .env up
     

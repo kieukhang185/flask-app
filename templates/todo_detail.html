@@ -1,5 +1,32 @@
 {% extends 'base.html' %}
+
 {% block title %}ToDo Detail{% endblock %}
+
 {% block content %}
-<div id="todoDetail"></div>
+<div class="container mt-4">
+  <h1 class="mb-3">ToDo Detail: <span id="todoKey"></span></h1>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title" id="todoTitle"></h5>
+      <p class="card-text" id="todoDescription"></p>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><strong>Type:</strong> <span id="todoType"></span></li>
+        <li class="list-group-item"><strong>Status:</strong> <span id="todoStatus"></span></li>
+        <li class="list-group-item"><strong>Epic:</strong> <span id="todoEpic">—</span></li>
+        <li class="list-group-item"><strong>Parent Task:</strong> <span id="todoParent">—</span></li>
+        <li class="list-group-item"><strong>Reporter:</strong> <span id="todoReporter">—</span></li>
+        <li class="list-group-item"><strong>Assignee:</strong> <span id="todoAssignee">—</span></li>
+        <li class="list-group-item"><strong>Created At:</strong> <span id="todoCreated"></span></li>
+        <li class="list-group-item"><strong>Last Updated:</strong> <span id="todoUpdated"></span></li>
+      </ul>
+
+      <div class="mt-4">
+        <h5>Comments</h5>
+        <ul class="list-group" id="commentsList">
+          <!-- comments get injected here -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

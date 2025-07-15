@@ -10,5 +10,5 @@ ARG DATE
 COPY ./backup/mongodb_data_${DATE}.tar.gz /backup/
 
 # Default: list the archive so you can verify it’s there
-CMD ["ls", "-lh", "/backup"]
+# CMD ["ls", "-lh", "/backup"]
 
